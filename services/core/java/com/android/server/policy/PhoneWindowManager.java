@@ -3222,6 +3222,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         } else if (keyCode == KeyEvent.KEYCODE_MENU) {
             // Hijack modified menu keys for debugging features
             final int chordBug = KeyEvent.META_SHIFT_ON;
+            if (virtualKey || keyguardOn) {
+                // Let the app handle the key
+                return 0;
+            }
+
+            if (mTopFullscreenOpaqueWindowState != null &&
+                    (mTopFullscreenOpaqueWindowState.getAttrs().privateFlags
+                            & (WindowManager.LayoutParams.PRIVATE_FLAG_PREVENT_SYSTEM_KEYS |
+                                WindowManager.LayoutParams.PRIVATE_FLAG_PREVENT_POWER_KEY)) != 0
+                    && mScreenOnFully) {
+                return 0;
+            }
 
             if (down && repeatCount == 0) {
                 if (mEnableShiftMenuBugReports && (metaState & chordBug) == chordBug) {
