@@ -151,6 +151,8 @@ public class LightsService extends SystemService {
         private int mLastBrightnessMode;
         private int mLastColor;
         private boolean mLocked;
+        private boolean mModesUpdate;
+        private boolean mMultipleLeds;
         private boolean mReset = true;
     }
 
