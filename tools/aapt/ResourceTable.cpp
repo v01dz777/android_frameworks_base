@@ -1804,7 +1804,7 @@ status_t compileResourceFile(Bundle* bundle,
     return hasErrors ? STATUST(UNKNOWN_ERROR) : NO_ERROR;
 }
 
-ResourceTable::ResourceTable(Bundle* bundle, const String16& assetsPackage, ResourceTable::PackageType type, ssize_t pkgIdOverride)
+ResourceTable::ResourceTable(Bundle* bundle, const String16& assetsPackage, ResourceTable::PackageType type)
     : mAssetsPackage(assetsPackage)
     , mPackageType(type)
     , mTypeIdOffset(0)
@@ -1830,11 +1830,6 @@ ResourceTable::ResourceTable(Bundle* bundle, const String16& assetsPackage, Reso
             assert(0);
             break;
     }
-
-    if (pkgIdOverride != 0) {
-        packageId = pkgIdOverride;
-    }
-
     sp<Package> package = new Package(mAssetsPackage, packageId);
     mPackages.add(assetsPackage, package);
     mOrderedPackages.add(package);
